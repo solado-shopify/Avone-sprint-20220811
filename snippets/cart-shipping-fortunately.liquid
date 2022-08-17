@@ -1,0 +1,75 @@
+{%- liquid
+  assign cart_total = cart.total_price | money_without_currency
+
+  if settings.free_shipping_threshold contains '.'
+    assign free_shipping_threshold = settings.free_shipping_threshold | split: '.' | first
+    assign free_shipping_threshold = free_shipping_threshold | append: '00'
+    assign free_shipping_threshold = free_shipping_threshold | plus: 0
+    assign free_shipping_threshold_cents = free_shipping_threshold | plus: 0
+    assign free_shipping_threshold = free_shipping_threshold | money_without_currency
+  else
+    assign free_shipping_threshold = settings.free_shipping_threshold | append: '00'
+    assign free_shipping_threshold = free_shipping_threshold | plus: 0
+    assign free_shipping_threshold_cents = free_shipping_threshold | plus: 0
+    assign free_shipping_threshold = free_shipping_threshold | money_without_currency
+  endif
+
+   assign if_freeshipping = true
+   assign if_need_freeshipping = false
+   if cart.total_price < free_shipping_threshold_cents
+    assign if_freeshipping = false
+   assign if_need_freeshipping = true
+   endif
+   
+-%}
+<div class="cart-shipping-fortunately {%if inCartPage %} inCartPage {% endif%}" free_shipping="{{settings.free_shipping_threshold}}" iffreeshipping="{{if_freeshipping}}">
+    <div class="cart-custom-shopping-link">
+            {% assign cart_total = cart.total_price | split: '.' | first %}
+            {% assign cart_total = cart_total | plus: 0 %}
+
+            {% assign amount_remaining = free_shipping_threshold_cents | minus: cart_total %}
+            {% assign cents = amount_remaining | split: "." | last %}
+
+            {% if cents.size == 1 %}
+                {% assign amount_remaining = amount_remaining | append: "0" %}
+            {% endif %}
+
+            {% assign amount_remaining = amount_remaining | replace: ".","" | money %}
+          
+          {% assign percent =  cart.total_price | times : 100| divided_by: free_shipping_threshold_cents %}
+          <!--<div>{{cart.total_price}}  | {{free_shipping_threshold_cents}} | {{percent}} </div>-->
+        <div class="to-freeshipping-wrap" {%if if_need_freeshipping%} style="display:flex;" {% else%} style="display:none;" {% endif%}>
+           <div class="percent-wrap" percent="{{percent}}">
+           <svg class="progress-ring" width="36" height="36">
+               <circle stroke="#d0d0d0" stroke-width="8" fill="transparent" r="13" cx="18" cy="18"/>
+              <circle class="progress-ring__circle" stroke="#0a957a" stroke-width="8" fill="transparent" r="13" cx="18" cy="18"/>
+            </svg>
+          </div>
+            <div class="need-to-add">
+                <div class="need-to-price">
+                  <span>Buy</span>
+                  <span class="amount_remaining">{{ amount_remaining }}</span>
+                  <span>more to enjoy</span>
+                </div>
+                <div><span class="mark-font">Free Standard Shipping!</span></div>
+            </div>
+          <div class="add-btn">+</div>
+          </div>
+                
+          <div class="freeshipping-wrap" {%if if_freeshipping%} style="display:flex;" {% else%} style="display:none;"  {% endif%}>
+          <span class="status-icon-wrap"><i class="ad ad-check-circle"></i></span>
+          <span class="status-label-wrap">you earned <span class="mark-font">Free Standard Shipping!</span></span>
+          </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var percent = '{{percent}}';
+window.addEventListener('DOMContentLoaded',function(){
+  {%if inCartPage %} 
+  initCartProgress(true,percent);
+  {% else %}
+   initCartProgress(false,percent); 
+  {% endif%}
+});
+</script>
