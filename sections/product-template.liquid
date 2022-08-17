@@ -34,7 +34,7 @@
 {%- assign product_thumbnail_width = 'small--one-third large-up--one-fifth' -%}
 {%- assign featured_img_src = current_variant.featured_image.src | default: product.featured_image.src -%}
 
-<div class="ptContainer {{settings.product_latyout}}{% if settings.product_latyout != "style6" %} page-width{% if settings.product_fullwidth %} fullwidth{%endif%}{%endif%}" data-style="{{settings.product_latyout}}" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
+<div class="ptContainer {{settings.product_latyout}}" data-style="{{settings.product_latyout}}" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
 	{% capture productImages %}
 		<div class="prod-large-img" data-product-single-media-group>
           	{%- liquid
@@ -53,7 +53,24 @@
                     assign slideloop = true
               	endif
           	-%}
-			<div class="primgSlider" data-slick='{"slidesToShow":{{slidetoshow}},"slidesToScroll": 1,"swipe":true, "centerMode": {{centermode}}, "infinite": {{slideloop}}, "fade": {{slidefade}},{% if settings.rtl %} "rtl": true,{% endif %} "asNavFor": ".product-single__thumbnails-{{section.id}}", "responsive":[{"breakpoint": 767,"settings":{"slidesToShow": 1,"draggable":true}} ]}'>
+			<style>
+                .slick-dots-customer {
+                    bottom: 15px;
+                }
+                .slick-dots-customer li button {
+                    background: #D9D9D9;
+                    height: 10px;
+                    width: 10px;
+                    opacity: 1;
+                }
+                .slick-dots-customer li.slick-active button {
+                    background: #000000
+                }
+			</style>
+			{% comment %}
+			 现在必须选择style3才有新的Ui效果-----2022年8月13日
+			{% endcomment %}
+			<div class="primgSlider" data-slick='{"slidesToShow":{{slidetoshow}},"slidesToScroll": 1, "swipe":true, "centerMode": {{centermode}}, "infinite": true, "dots": true, "arrows":false, "swipeToSlide":true, "useTransform":true, "dotsClass": "slick-dots slick-dots-customer", "fade": {{slidefade}},{% if settings.rtl %} "rtl": true,{% endif %} "asNavFor": ".product-single__thumbnails-{{section.id}}", "responsive":[{"breakpoint": 767,"settings":{"slidesToShow": 1,"draggable":true}} ]}'>
 				{%- for media in product.media -%}
 					{%- assign imgNo = forloop.index0 -%}
               		{%- case media.media_type -%}
@@ -85,7 +102,15 @@
               		{%- endcase -%}
 				{%- endfor -%}
 			</div>
-          
+			<script>
+                !function () {
+					let target = document.querySelector('#ProductSection-{{ section.id }} .primgSlider');
+                    let w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                    if(w > 767) {
+	                    target.setAttribute("data-slick",'{"slidesToShow":{{slidetoshow}}, "slidesToScroll": 1, "swipe":true, "arrows":false, "centerMode": {{centermode}}, "infinite": {{slideloop}}, "fade": {{slidefade}},{% if settings.rtl %} "rtl": true,{% endif %} "asNavFor": ".product-single__thumbnails-{{section.id}}", "responsive":[{"breakpoint": 767,"settings":{"slidesToShow": 1,"draggable":true}} ]}')
+	                }
+                }()
+			</script>
           {% assign first_3d_model = product.media | where: "media_type", "model" | first %}
 
       {%- if first_3d_model -%}
@@ -126,7 +151,7 @@
                   	assign thumbcount = 6
               	endif
           	-%}
-			<div class="thumbnails-wrapper text-center{% if product.images.size < thumbcount %} dslider{% endif %}{% if  settings.product_latyout == "style4" or settings.product_latyout == "style5" or settings.product_latyout == "style7" %} hide{% endif %}{% if product.media.size == 1 %} hide{% endif %}">
+			<div class="phone-hide thumbnails-wrapper text-center{% if product.images.size < thumbcount %} dslider{% endif %}{% if  settings.product_latyout == "style4" or settings.product_latyout == "style5" or settings.product_latyout == "style7" %} hide{% endif %}{% if product.media.size == 1 %} hide{% endif %}">
 				<div class="product-single__thumbnails product-single__thumbnails-{{ section.id }}{% if product.media.size < thumbcount %} dslider{% endif %}"
                      data-slick='{"slidesToShow":{{thumbcount}},"slidesToScroll": 1, "infinite": false, "verticalSwiping": {{verticle}}, "vertical": {{verticle}}, "asNavFor": ".primgSlider", "focusOnSelect": true,{% if settings.rtl %} "rtl": true,{%- endif -%}
                   	"responsive":[{"breakpoint": 767,"settings":{"slidesToShow": 5, "vertical": false, "swipe": true, "verticalSwiping": false }} ]}'>
@@ -568,7 +593,7 @@
 		<div class="product-single__meta text-center">{{productDetails | strip_newlines | remove: "	"}}</div>
 	</div>
 {% endif %}
-  <div class="out-review" id="tab{{reviewtabId}}">
+  <div class="out-review page-width" id="tab{{reviewtabId}}">
     {% include 'reviews' %}
   </div>
 {% if settings.product_latyout != "style3" %}{{productTabs | strip_newlines | remove: "	"}}{% endif %}

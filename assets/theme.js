@@ -1273,11 +1273,27 @@ theme.Product = (function() {
         enableHistoryState: this.$container.data('enable-history-state') || false,
         singleOptionSelector: this.selectors.singleOptionSelector,
         originalSelectorId: this.selectors.originalSelectorId,
-        product: this.productSingleObject
+        product: this.productSingleObject,
+        productColorOptions:this.$container.find('.option1'),
       };
-
       this.variants = new slate.Variants(options);
-
+      //给变体添加颜色分组start
+      let variantSrcElements = options.productColorOptions.find('label[data-bgset]')
+      let groupIndexList = []
+      for (let i = 0; i < this.productSingleObject.images.length; i++){
+        for (let j = 0; j < variantSrcElements.length; j++) {
+          let sizedImgUrl = theme.Images.getSizedImageUrl(variantSrcElements[j].getAttribute('data-variantimgsrc'),'master')
+          if(this.productSingleObject.images[i].indexOf(sizedImgUrl) > -1){
+            groupIndexList.push(i)
+            break
+          }
+        }
+      }
+      let imgEls = this.$container.find('.product-single__photo')
+      for (let j = 0 ; j < groupIndexList.length; j++) {
+        imgEls.slice(groupIndexList[j], groupIndexList[j + 1]).attr('data-color-group',j)
+      }
+      //给变体添加颜色分组end
       this.$container.on('variantChange' + this.settings.namespace, this._updateAddToCart.bind(this));
       this.$container.on('variantImageChange' + this.settings.namespace, this._updateImages.bind(this));
       this.$container.on('variantPriceChange' + this.settings.namespace, this._updatePrice.bind(this));
@@ -1329,6 +1345,7 @@ theme.Product = (function() {
       $(this.selectors.productThumbImages).removeClass(activeClass);
       $thumbnail.addClass(activeClass);
       var slideno = $thumbnail.parent().data('slide');
+      this._handleImageFilter()
       if(theme.productStrings.prStyle == "style4" || theme.productStrings.prStyle == "style5" ){
       	var imgposition = $(".product-single__photo[data-slide='"+slideno+"']").offset();
       	if($(window).width()>767) {
@@ -1337,7 +1354,11 @@ theme.Product = (function() {
           $('.primgSlider').slick('slickGoTo', slideno);
         }
       } else {
-        $('.primgSlider').slick('slickGoTo', slideno);
+        if($(window).width() > 767) {
+          $('.primgSlider').slick('slickGoTo', slideno);
+        } else {
+          $('.primgSlider').slick('slickGoTo', 0);
+        }
       }
     },
 
@@ -1507,6 +1528,14 @@ theme.Product = (function() {
       $(this.selectors.SKU).html(variant.sku);
     },
 
+    _handleImageFilter:function () {
+      if($(window).width() <= 767) {
+        $('.primgSlider').slick('slickUnfilter');
+        // 因为options1的dom有一个元素label元素，所以index要-1
+        let colorOptionsIndex = this.$container.find('.option1 input:checked').parent().index() -1
+        $('.primgSlider').slick('slickFilter',`div[data-color-group=${colorOptionsIndex}]`);
+      }
+    },
     onUnload: function() {
       this.$container.off(this.settings.namespace);
     }
@@ -2823,7 +2852,6 @@ function handleCodeText (container){
       let fps = tarDom.dataset.code_autoplay_time * 1000;
       targetEl.innerHTML = tarDom.innerHTML;
       let swiperContainers = targetEl.querySelector('.swiper-container');
-      console.log(swiperContainers);
       let sildeTextOnlyMobie = new Swiper(swiperContainers, {
         autoplay: {
           delay: fps

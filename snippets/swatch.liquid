@@ -48,6 +48,7 @@
               <span class="tooltip-label">{{ value }}</span>
             {% else %}
                 <label class="swatchLbl lazyload color {{settings.sw_color_size}} {{settings.sw_color_style}}" for="{{product.id}}-{{ option_index }}-{{ value | handle }}"
+                       data-variantimgsrc="{{ variant.featured_media.preview_image.src }}"
                        data-bgset="{% include 'swatch-bg', image: variant.image %}" data-sizes="auto" data-parent-fit="contain"
                        style="background-image:url({{ 'spacer.png' | asset_img_url: 'master' }});"></label>
                 <span class="tooltip-label">{{ value }}</span>
