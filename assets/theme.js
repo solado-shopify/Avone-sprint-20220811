@@ -1277,23 +1277,25 @@ theme.Product = (function() {
         productColorOptions:this.$container.find('.option1'),
       };
       this.variants = new slate.Variants(options);
-      //给变体添加颜色分组start
-      let variantSrcElements = options.productColorOptions.find('label[data-bgset]')
+      //变体添加颜色分组start
+      let variantSrcElements = options.productColorOptions.find('div[data-variantimgsrc]')
       let groupIndexList = []
       for (let i = 0; i < this.productSingleObject.images.length; i++){
         for (let j = 0; j < variantSrcElements.length; j++) {
           let sizedImgUrl = theme.Images.getSizedImageUrl(variantSrcElements[j].getAttribute('data-variantimgsrc'),'master')
           if(this.productSingleObject.images[i].indexOf(sizedImgUrl) > -1){
-            groupIndexList.push(i)
-            break
+            //把分组下标临界点和对应颜色组成对象数组
+            groupIndexList.push({index:i,value:variantSrcElements[j].getAttribute('data-value')})
           }
         }
       }
       let imgEls = this.$container.find('.product-single__photo')
-      for (let j = 0 ; j < groupIndexList.length; j++) {
-        imgEls.slice(groupIndexList[j], groupIndexList[j + 1]).attr('data-color-group',j)
+      // 添加一个空颜色的末项item，让遍历和写入属性逻辑更清晰
+      groupIndexList.push({index:imgEls.length,value:undefined})
+      for (let i = 0 ; i < groupIndexList.length - 1; i++) {
+        imgEls.slice(groupIndexList[i].index, groupIndexList[i + 1].index).attr('data-color-group',groupIndexList[i].value)
       }
-      //给变体添加颜色分组end
+      //变体添加颜色分组end
       this.$container.on('variantChange' + this.settings.namespace, this._updateAddToCart.bind(this));
       this.$container.on('variantImageChange' + this.settings.namespace, this._updateImages.bind(this));
       this.$container.on('variantPriceChange' + this.settings.namespace, this._updatePrice.bind(this));
@@ -1531,9 +1533,8 @@ theme.Product = (function() {
     _handleImageFilter:function () {
       if($(window).width() <= 767) {
         $('.primgSlider').slick('slickUnfilter');
-        // 因为options1的dom有一个元素label元素，所以index要-1
-        let colorOptionsIndex = this.$container.find('.option1 input:checked').parent().index() -1
-        $('.primgSlider').slick('slickFilter',`div[data-color-group=${colorOptionsIndex}]`);
+        let colorOptionsName = this.$container.find('.option1 input:checked').parent().attr('data-value')
+        $('.primgSlider').slick('slickFilter',`div[data-color-group=${colorOptionsName}]`);
       }
     },
     onUnload: function() {
