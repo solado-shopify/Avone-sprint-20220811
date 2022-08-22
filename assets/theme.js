@@ -496,6 +496,7 @@ slate.Variants = (function() {
 
     /*** Event handler for when a variant input changes. */
     _onColorSelectChange: function(event) {
+      event.stopPropagation();
       console.log('111_onColorSelectChange event',event.data.foo);
       // var variant = this._getVariantFromOptions();
       // this.$container.trigger({
