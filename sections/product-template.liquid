@@ -54,16 +54,16 @@
               	endif
           	-%}
 			<style>
-                .slick-dots-customer {
+                #ProductSection-{{ section.id }} .slick-dots-customer {
                     bottom: 15px;
                 }
-                .slick-dots-customer li button {
+                #ProductSection-{{ section.id }} .slick-dots-customer li button {
                     background: #D9D9D9;
                     height: 10px;
                     width: 10px;
                     opacity: 1;
                 }
-                .slick-dots-customer li.slick-active button {
+                #ProductSection-{{ section.id }} .slick-dots-customer li.slick-active button {
                     background: #000000
                 }
 			</style>
@@ -118,7 +118,7 @@
           <span class='product-single__view-in-space-text'>view in space</span>
         </button>
       {%- endif -%}
-          
+      
 			<div class="product-btn flex">
 				{% comment %}*** product video *** {% endcomment %}
 				{%- if product.metafields.my_fields.video != blank -%}<a href="{{product.metafields.my_fields.video}}" class="btn popup-video"><i class="ad ad-video2" aria-hidden="true"></i> <span class="tooltip-label">{{ 'products.product.video' | t }}</span></a>{%- endif -%}
@@ -178,7 +178,7 @@
 {% endcapture %}
 {% capture infoLinks %}
     {%- if settings.enable_wishlist or settings.askaboutproduct or settings.shippingpopup -%}
-        <div class="infolinks mfp-link"> 
+        <div class="infolinks mfp-link">
             {%- if settings.enable_wishlist -%}<a class="inLink wishlist addto-wishlist" href="/pages/wishlist" rel="{{ product.handle | handleize }}"><i class="ad ad-heart-l"></i><span class="msg">{{ 'products.wishlist.add_to' | t}}</span></a>{%- endif -%}
             {%- if settings.shippingpopup -%}<a href="#ShippingInfo" data-effect="mfp-zoom-in" class="inLink mfp"><i class="ad ad-paper-l-plane"></i> {{'products.product.shipping_link' | t}}</a>{%- endif -%}
             {%- if settings.askaboutproduct -%}
@@ -193,7 +193,7 @@
 	{%- if settings.show_product_review or settings.spr_availability or settings.spr_sku -%}
   		{% assign number_reviews = product.metafields.loox.num_reviews | plus: 0 %}
   		{% if number_reviews >= 1 %}
-		<div class="product-info">
+		<div class="product-info mt-0375">
 			{%- if settings.show_product_review -%}
           		{%- assign reviewtabId = "" -%}
           		{% for block in section.blocks %}
@@ -335,7 +335,7 @@
                                   	{% assign optionName = option.name | downcase %}
                                     {% if settings.sizechart_link and optionName contains "size" or optionName contains "rozmiar" or optionName contains "taille" or optionName contains "talla" or optionName contains "tamaño" or optionName contains "größe" %}
                                         <a href="#sizechart" class="mfp sizelink" data-effect="mfp-zoom-in">
-                                     <i class="iconfont icon-chizi"></i> {{ 'products.product.size_chart' | t}}</a>
+                                     <i><svg t="1661235193424" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3072" width="32" height="32"><path d="M988.16 714.752H37.888V309.76h950.784l-0.512 404.992z m-909.312-40.96h868.864V350.72H78.848v323.072z" fill="#040000" p-id="3073"></path><path d="M246.784 553.984c-11.264 0-20.48-9.216-20.48-20.48V330.24c0-11.264 9.216-20.48 20.48-20.48s20.48 9.216 20.48 20.48v203.264c0 11.264-9.216 20.48-20.48 20.48zM424.448 511.488c-11.264 0-20.48-9.216-20.48-20.48V335.872c0-11.264 9.216-20.48 20.48-20.48s20.48 9.216 20.48 20.48v155.136c0 11.264-9.216 20.48-20.48 20.48zM779.264 511.488c-11.264 0-20.48-9.216-20.48-20.48V335.872c0-11.264 9.216-20.48 20.48-20.48s20.48 9.216 20.48 20.48v155.136c0 11.264-9.216 20.48-20.48 20.48zM601.6 559.616c-11.264 0-20.48-9.216-20.48-20.48V335.872c0-11.264 9.216-20.48 20.48-20.48s20.48 9.216 20.48 20.48v203.264c0 11.264-9.216 20.48-20.48 20.48z" fill="#040000" p-id="3074"></path></svg></i> {{ 'products.product.size_chart' | t}}</a>
                                         {% assign sizechart = true %}
                                         {%- assign sizechartcontent = true -%}
                                     {% endif %}
