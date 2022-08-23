@@ -142,7 +142,10 @@
             <img src="//cdn.shopify.com/s/files/1/0586/6455/0568/files/amex@2x.png?v=1632725521" alt="" class="payment-icon">
             <img src="//cdn.shopify.com/s/files/1/0586/6455/0568/files/discover@2x.png?v=1632725014" alt="" class="payment-icon">
             <img src="//cdn.shopify.com/s/files/1/0586/6455/0568/files/dinersclub@2x.jpg?v=1632725004" alt="" class="payment-icon">
-            <img style="background-color: rgb(255 179 199);" src="https://cdn.shopify.com/s/files/1/0586/6455/0568/files/20220426-105511.png?v=1650941727" alt="" class="payment-icon">
+             {% if shop.currency == 'USD' %}
+                <img style="background-color: rgb(255 179 199);" src="https://cdn.shopify.com/s/files/1/0586/6455/0568/files/20220426-105511.png?v=1650941727" alt="" class="payment-icon">
+             {%  endif %}
+
           </div>
         	{% endif %}
             
