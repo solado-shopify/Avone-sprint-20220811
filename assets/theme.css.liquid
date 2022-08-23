@@ -1919,7 +1919,7 @@ line-height: 32px; margin-bottom: 0px;margin-top: 0; }
 .orderMsg .ad { vertical-align:middle; margin-right:2px; font-size:18px; }
 {%- endif -%}
 
-.product-single__price { line-height:1.4; align-items:center; flex-wrap:wrap; margin-bottom:26px; margin-top:16px;}
+.product-single__price { line-height:1.4; align-items:center; flex-wrap:wrap; margin-bottom:16px; margin-top:16px;}
 .product-single__price > * { margin-right:10px; }
 .product-single__price .product-price__price { font-family: 'Termina';color:{{settings.rprice}}; font-size:{{ settings.Prod_price_font_size}}px; font-weight:{{ settings.prod_price_font_weight}}; }
 .product-single__price .product-price__sale {font-size:19px;color: #E40000;line-height: 32px;}
@@ -2059,8 +2059,9 @@ line-height: 24px;float:right; }
 .product-action button { max-width:500px; flex:1; height:40px; margin-bottom:0; border:1px solid {{settings.addto_btn_bg}}; background-color:{{settings.addto_btn_bg}}; color:{{settings.addto_btn_text}};font-weight: 700;
 font-size: 16px;    border-radius: 5px; }
 .product-action button:hover { background-color:{{settings.addto_btn_bg_hov}}; color:{{settings.addto_btn_text_hov}}; border:1px solid {{settings.addto_btn_text_bdr}};}
+.swym-btn-container[data-position=default] .swym-button {width: 30px!important;}
 .swym-btn-container .swym-button.swym-added:after { opacity: unset !important;}
-.swym-btn-container .swym-button:after {transform: scale(1.2)}
+.swym-btn-container .swym-button:after {font-size: 24px!important; width: 30px!important;}
 .product-action .swym-button:hover { border:unset !important;}
 {% if settings.enable_payment_button %}
 .shopify-payment-button { margin-bottom:30px; max-width:600px; }
