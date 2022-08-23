@@ -76,13 +76,7 @@
       bottom: 0;
       left: 0;
     }
-    #MobileNav .clone-footer-wrap .socials{
-      text-align: center;
-      margin-bottom:20px;
-    }
-    #MobileNav .clone-footer-wrap .paymentCall{
-      justify-content: center;
-    }
+
     #MobileNav .clone-footer-wrap .footer-bottom .flex > div{
       font-size: 12px;
     }
@@ -771,18 +765,8 @@
       $footer.find(".footer-bottom").remove();
       $footer.find(".socials").remove();
       $footer.find(".paymentCall").remove();
-      console.log("footer",$footer);
       var $footerBottom = $("#shopify-section-footer .site-footer .footer-bottom").clone(true);
-      var socials = $("#shopify-section-footer .site-footer .socials").clone(true);
-      var paymentCall = $("#shopify-section-footer .site-footer .paymentCall").clone(true);
-      
       $(sideNav).append("<div class='clone-footer-wrap'></div>").find(".clone-footer-wrap").append($footer).append($footerBottom);
-      
-      var footerFw = $(sideNav).find(".footer-bottom .footer-fw");
-      
-      paymentCall.insertBefore(footerFw);
-      socials.insertBefore($(sideNav).find(".footer-bottom .paymentCall"));
-      console.log($(".clone-footer-wrap").height(),$(".clone-footer-wrap .site-footer").height() + $(".clone-footer-wrap .footer-bottom").height());
       if($(".clone-footer-wrap").height()>($(".clone-footer-wrap .site-footer").height() + $(".clone-footer-wrap .footer-bottom").height())){
       	$(".clone-footer-wrap .footer-bottom").addClass("footer-fixed-bottom")
       }
@@ -925,7 +909,7 @@
       	border-top: 1px #000 solid;
       }
       #MobileNav .clone-footer-wrap .footer-bottom .flex{
-        margin-bottom: 20px;
+        margin-bottom: 10px;
       }
     }
     .mobile-nav-wrapper {
@@ -977,8 +961,7 @@
     #MobileNav .site-footer{
       background: #F5F5F5;
       margin-top: 0;
-      max-height: calc(100% - 152px);
-      overflow: auto;
+      max-height: calc(100% - 44px);
     }
     #MobileNav .site-footer .social-icons li{
       padding:0;
