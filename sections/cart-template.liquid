@@ -68,10 +68,13 @@
           {% for discount in item.discounts %}<div class="cart-item__discount medium-up--hide">{{ discount.title }}</div>{% endfor %}
         </div>
       </td>
-      <td class="text-left small--show mobile-delete">
-        <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" title="{{ 'cart.general.remove' | t }}" class="medium-up--hide removeMb"><i class="ad ad-trash-ar" aria-hidden="true"></i></a>
-      </td>
-      <td class="cart__update-wrapper text-center small--hide">        
+        {% comment %}
+            <td class="text-left small--show mobile-delete">
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" title="{{ 'cart.general.remove' | t }}" class="medium-up--hide removeMb"><i class="ad ad-trash-ar" aria-hidden="true"></i></a>
+            </td>
+        {% endcomment %}
+      <td class="cart__update-wrapper text-center small--
+      hide">
         <div class="qtyField{% if product.selected_or_first_available_variant.id == item.id %} hide{% endif %}">
            {% if item.quantity == 1 %}
               <a class="cartQtyBtn minus" href="javascript:void(0);"><i aria-hidden="true"><svg t="1661235323013" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3208" width="32" height="32"><path d="M595.456 745.984c-17.408 0-31.232-13.824-31.232-31.232V441.344c0-17.408 13.824-31.232 31.232-31.232s31.232 13.824 31.232 31.232v272.896c0 17.408-14.336 31.744-31.232 31.744zM428.544 745.984c-17.408 0-31.232-13.824-31.232-31.232V441.344c0-17.408 13.824-31.232 31.232-31.232s31.232 13.824 31.232 31.232v272.896c0 17.408-13.824 31.744-31.232 31.744zM875.008 252.416H148.992c-17.408 0-31.232-13.824-31.232-31.232 0-17.408 13.824-31.232 31.232-31.232h726.016c17.408 0 31.232 13.824 31.232 31.232 0 17.408-13.824 31.232-31.232 31.232z" fill="#040000" p-id="3209"></path><path d="M731.648 966.144H291.84c-46.08 0-81.92-46.08-81.92-104.448V189.952h604.16v671.232c-1.024 58.88-36.864 104.96-82.432 104.96zM272.384 252.416v608.768c0 25.6 12.8 42.496 19.456 42.496h440.32c6.656 0 19.456-16.896 19.968-42.496V252.416H272.384z" fill="#040000" p-id="3210"></path><path d="M636.928 245.248c-17.408 0-31.232-13.824-31.232-31.232 0-51.712-41.984-93.696-93.696-93.696s-93.696 41.984-93.696 93.696c0 17.408-13.824 31.232-31.232 31.232s-31.232-13.824-31.232-31.232c0-86.016 70.144-156.16 156.16-156.16s156.16 70.144 156.16 156.16c0 17.408-13.824 31.232-31.232 31.232z" fill="#040000" p-id="3211"></path></svg></i></a>
