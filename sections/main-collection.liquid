@@ -242,7 +242,7 @@
       </div>
 
       <!-- Left sidebar -->
-      {% if section.settings.collection_sidebar %}<div class="sidebar filterbar {{section.settings.sidebar_position}}">{% include 'collection-sidebar',collection %}</div>{% endif %}
+      {% if section.settings.collection_sidebar %}<div class="sidebar filterbar {{section.settings.sidebar_position}}">{% include 'collection-sidebar' %}</div>{% endif %}
     </div>
   </div>  
 </div>
@@ -1045,4 +1045,13 @@
         _tfa.push({notify: 'event', name: 'add_to_cart', id: 1461029});
       });
     });
-</script>
+</script>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'collection-sidebar',collection %}"
+  to: "{% include 'collection-sidebar' %}"
+  position: 14087..14121
+{%- endcomment -%}

@@ -36,7 +36,7 @@
           {% assign delay_time = 50 | times : product_box %}
           <div class="grid__item {{grid_mb}} {{grid_tb}} {{grid_ds}} pd-{{ section.settings.grid-spacing}} wow fadeIn" {{ block.shopify_attributes }} data-wow-delay="{{delay_time}}ms">
             {%- assign collection = collections[block.settings.collection] -%}
-       		 {% include 'collection-grid-item', collection_image_size: image_size, text_align:{{section.settings.txt-align}} %}
+       		 {% include 'collection-grid-item', collection_image_size: image_size, text_align: section.settings.txt-align %}
           </div>
         {% endfor %}
       </div>    
@@ -476,3 +476,15 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'collection-grid-item', collection_image_size: image_size, text_align:{{section.settings.txt-align}}
+    %}"
+  to: "{% include 'collection-grid-item', collection_image_size: image_size, text_align:
+    section.settings.txt-align %}"
+  position: 3124..3235
+{% endcomment %}

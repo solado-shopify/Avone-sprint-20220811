@@ -42,7 +42,7 @@
         <li id="freeShipclaim" class="freeShipMsg freeShipclaim"><i class="ad ad-truck-l"></i><p>{{settings.got_free_ship }}</p></li>
         {%- endif -%}
 		{% comment %}<span class="ajax-cart__header__continue-link-text">{{ 'cart.general.continue_shopping' | t }}</span> {% endcomment %}
-        <li>{% render 'cart-shipping-fortunately', cart %}</li>	
+        <li>{% render 'cart-shipping-fortunately' %}</li>	
 		<li class="cart-subtotal-row flex"> <span>{{ 'cart.general.subtotal' | t }}:</span> <span class="product-price" rv-html="cart.total_price | money currency.currentCurrency"></span> </li>
       	<li class="buttonSet">
           	{%- if settings.shippingTax -%}<p class="cart__shipping">{{ 'cart.general.shipping_at_checkout' | t }}</p>{%- endif -%}
@@ -132,4 +132,13 @@
     handleCodeText('#cart-drawer .mini-cart-discount');
  });
   
-</script>
+</script>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'cart-shipping-fortunately', cart %}"
+  to: "{% render 'cart-shipping-fortunately' %}"
+  position: 4991..5031
+{%- endcomment -%}

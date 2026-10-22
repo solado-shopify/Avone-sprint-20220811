@@ -168,7 +168,7 @@
           {% comment %}<span>{{caseStr}}</span>{% endcomment %}  
         
           {% if block.settings.megamenu1_image != blank or block.settings.megamenu2_image != blank %}
-            {% include 'mm-links-pc',caseStr %}
+            {% include 'mm-links-pc' %}
             {% comment %}{% for link in linklists[block.settings.mm_linklist].links %}{% include 'mm-links-pc',caseStr %}{% endfor %}{% endcomment %}
         	{% comment %}图片区域{% endcomment %}
         	<ul class="nav-custom-image-wrap">
@@ -183,7 +183,7 @@
               {%endif%}
         	</ul>
           {%- else -%}
-        	{% include 'mm-links-pc',caseStr %}
+        	{% include 'mm-links-pc' %}
         	{% comment %}<ul class="grid flex-item mmWrapper">{% for link in linklists[block.settings.mm_linklist].links %}{% include 'mm-links' %}{% endfor %}</ul>{% endcomment %}
           {%- endif -%}
          {% if block.settings.box_sized %}</div>{% endif %}
@@ -2077,4 +2077,16 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'mm-links-pc',caseStr %}"
+  to: "{% include 'mm-links-pc' %}"
+  position: 8264..8291
+- from: "{% include 'mm-links-pc',caseStr %}"
+  to: "{% include 'mm-links-pc' %}"
+  position: 8847..8874
+{%- endcomment -%}

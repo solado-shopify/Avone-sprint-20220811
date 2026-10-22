@@ -37,7 +37,7 @@
           {% assign delay_time = 50 | times : product_box %}
           <div class="collection-item-wrap wow fadeIn" {{ block.shopify_attributes }} data-wow-delay="{{delay_time}}ms" {% if block.settings.width %} style="width:calc({{block.settings.width}} - {{section.settings.grid-spacing}}px);"{% endif%}>
             {%- assign collection = collections[block.settings.collection] -%}
-       		 {% include 'collection-grid-item-radio', collection_image_size: image_size, text_align:{{section.settings.txt-align}} %}
+       		 {% include 'collection-grid-item-radio', collection_image_size: image_size, text_align: section.settings.txt-align %}
           </div>
         {% endfor %}
       </div>    
@@ -562,3 +562,15 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'collection-grid-item-radio', collection_image_size: image_size,
+    text_align:{{section.settings.txt-align}} %}"
+  to: "{% include 'collection-grid-item-radio', collection_image_size: image_size,
+    text_align: section.settings.txt-align %}"
+  position: 2674..2791
+{% endcomment %}

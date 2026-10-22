@@ -601,7 +601,7 @@
       		<div class="bdr-box">
               	<div class="cart-page-continue-add">			
                     {% assign inCartPage = true %}
-                    {% render 'cart-shipping-fortunately', cart ,inCartPage:inCartPage %}
+                    {% render 'cart-shipping-fortunately', inCartPage: inCartPage %}
                 </div>
           		{% if section.settings.shipping_calculator %}{% include 'shipping-calculator' %}{% endif %}
           		{% if section.settings.enable_giftcard %}{% include 'gift-wrapping' %}{% endif %}
@@ -954,4 +954,13 @@ window.addEventListener('load', function() {
        _tfa.push({notify: 'event', name: 'start_checkout', id: 1461029});
      });
    });
-</script>
+</script>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'cart-shipping-fortunately', cart ,inCartPage:inCartPage %}"
+  to: "{% render 'cart-shipping-fortunately', inCartPage: inCartPage %}"
+  position: 24024..24088
+{%- endcomment -%}

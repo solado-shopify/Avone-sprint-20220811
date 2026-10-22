@@ -24,10 +24,19 @@
             <div class="grid__item one-half medium-up--one-three large-up--one-quarter">
                 <a class="btn removeItem" title="{{ 'products.wishlist.remove' | t }}" href="{{product.handle}}"><i class="at at-times-r" aria-hidden="true"></i></a>
               {%- assign onlyRound = true -%}
-              {%- include 'product-card-grid',onlyRound -%}
+              {%- include 'product-card-grid' -%}
             </div>
         {%- endif-%}
     {%- endfor -%}
   {%- endif-%}
 {% endcapture %}
-{{ productList | strip_newlines | remove: "  " | remove: "	" }}
+{{ productList | strip_newlines | remove: "  " | remove: "	" }}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- include 'product-card-grid',onlyRound -%}"
+  to: "{%- include 'product-card-grid' -%}"
+  position: 1529..1564
+{%- endcomment -%}

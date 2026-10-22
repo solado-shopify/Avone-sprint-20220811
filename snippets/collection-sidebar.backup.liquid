@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded',function(){
           <div class="widget-title">{{block.settings.title}}</div>
           <div class="widget-content">
             {% assign hideFirtLevel = true %}
-            <ul class="sidebar_cate">{% for link in linklists[block.settings.side_categories].links %}{% include 'mm-links',collection,hideFirtLevel %}{% endfor %}</ul>
+            <ul class="sidebar_cate">{% for link in linklists[block.settings.side_categories].links %}{% include 'mm-links' %}{% endfor %}</ul>
           </div>
         </div>
     {% endif %}
@@ -337,4 +337,13 @@ window.addEventListener('DOMContentLoaded',function(){
       .slider-container.slider-readonly .clickable-dummy, .slider-container.slider-readonly .pointer { cursor:auto; }
     </style>
 	{% endif %}
-{%- endfor -%}
+{%- endfor -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'mm-links',collection,hideFirtLevel %}"
+  to: "{% include 'mm-links' %}"
+  position: 1117..1141
+{%- endcomment -%}

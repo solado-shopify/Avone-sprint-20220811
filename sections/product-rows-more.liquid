@@ -50,7 +50,7 @@
       {%- assign defaultNumber =  section.settings.rows | plus: 0 -%} {% comment%}string转为数字{% endcomment %}
       {%- assign onlyRound = true -%}
       {% for product in collection.products limit: defaultNumber %}
-      <div class="grid__item item {{grid_mb}} {{grid_tb}} {{grid_ds}}" >{% include 'product-card-grid-cart',onlyRound, sizes: image_size %}</div>
+      <div class="grid__item item {{grid_mb}} {{grid_tb}} {{grid_ds}}" >{% include 'product-card-grid-cart', sizes: image_size %}</div>
       {% endfor %}
     </div>
     {% else %}
@@ -398,4 +398,13 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'product-card-grid-cart',onlyRound, sizes: image_size %}"
+  to: "{% include 'product-card-grid-cart', sizes: image_size %}"
+  position: 2501..2558
+{%- endcomment -%}
